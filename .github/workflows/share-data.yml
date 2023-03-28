@@ -1,0 +1,39 @@
+name: shareDataBetweenJobs
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the "main" branch
+  push:
+    branches: [ "main" ]
+
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  job1:
+    runs-on: ubuntu-lates
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Run a one-line script
+        id: msg
+        run: echo Hello, world!
+
+      - name: Run a multi-line script
+        run: |
+          echo Add other actions to build,
+          echo test, and deploy your project.
+    outputs:
+      data1: ${{ steps.msg.run }}
+  
+  job2:
+    needs: job1
+    runs-on: ubuntu-lates
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Run a one-line script
+        run: echo ${{ steps.msg.run }}
+
