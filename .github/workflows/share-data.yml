@@ -18,15 +18,15 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: Run a one-line script
-        id: msg
-        run: echo Hello, world!
+        id: step1
+        run: echo "::set-output name=op1::Hello, world"
 
       - name: Run a multi-line script
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
     outputs:
-      data1: ${{ steps.msg.outputs.data1 }}
+      data1: ${{ steps.step1.outputs.op1 }}
   
   job2:
     needs: job1
@@ -35,5 +35,5 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: Run a one-line script
-        run: echo ${{ steps.msg.outputs.data1 }}
+        run: echo ${{ needs.job1.outputs.data1 }}
 
