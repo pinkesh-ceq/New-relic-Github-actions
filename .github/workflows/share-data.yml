@@ -19,12 +19,9 @@ jobs:
 
       - name: Run a one-line script
         id: step1
-        run: echo "::set-output name=op1::Hello, world"
+        run: echo "::set-output name=op1::Hello, New Relic"
 
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+
     outputs:
       data1: ${{ steps.step1.outputs.op1 }}
   
