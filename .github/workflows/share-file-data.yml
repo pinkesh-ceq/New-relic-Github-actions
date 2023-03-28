@@ -1,0 +1,38 @@
+name: shareDataBetweenJobs
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the "main" branch
+  # push:
+  #   branches: [ "main" ]
+
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  runPythonScript:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+     - uses: actions/setup-python@v4
+       with:
+         python-version: '3.10' 
+       - run: |
+          var1=python script.py
+          echo "::set-output name=op1::$var1"
+
+    outputs:
+      data1: ${{ steps.step1.outputs.op1 }}
+  
+  job2:
+    needs: job1
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Run output from job1
+        run: echo ${{ needs.job1.outputs.data1 }}
+      
