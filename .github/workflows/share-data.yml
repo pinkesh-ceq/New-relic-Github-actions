@@ -26,7 +26,7 @@ jobs:
           echo Add other actions to build,
           echo test, and deploy your project.
     outputs:
-      data1: ${{ steps.msg.run }}
+      data1: ${{ steps.msg }}
   
   job2:
     needs: job1
