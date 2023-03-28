@@ -21,9 +21,14 @@ jobs:
         id: step1
         run: echo "::set-output name=op1::Hello, New Relic"
 
-
+      - name: Run a multi-line script
+        id: step2
+        run: |
+          var1=This is a variable
+          echo "::set-output name=op2::$var1"
     outputs:
       data1: ${{ steps.step1.outputs.op1 }}
+      data1: ${{ steps.step2.outputs.op2 }}
   
   job2:
     needs: job1
@@ -31,6 +36,8 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Run a one-line script
+      - name: Run output from job1
         run: echo ${{ needs.job1.outputs.data1 }}
+      - name: Run from variable
+        run: echo ${{ needs.job1.outputs.data2 }}
 
